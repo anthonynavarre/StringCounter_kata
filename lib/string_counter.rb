@@ -1,10 +1,5 @@
 class String
   def add
-    numbers = self.split(',')
-    sum = 0
-    numbers.each do |num|
-      sum += num.to_i
-    end
-    sum
+    self.split(',').inject(0) { |sum, num| sum + num.to_i }
   end
 end
