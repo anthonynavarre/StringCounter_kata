@@ -15,14 +15,23 @@ describe 'String Calculator' do
       end
     end
 
-    context 'when dealing with more than 1 digit' do
+    context 'when dealing with more than 1 number' do
 
-      it 'returns the sum of its parts' do
+      it 'returns the sum of 2 numbers' do
         '1,2'.add.should == 3
       end
 
+      it 'returns the sum of 3 numbers' do
+        '1,2,3'.add.should == 6
+      end
     end
 
+    context 'when using special characters as separators' do
+
+      it "treats newline characters (\\n) the same as commas" do
+       "1\n2,3".add.should == 6 
+      end
+    end
   end
 end
 
