@@ -4,34 +4,57 @@ describe 'String Calculator' do
 
   describe '#add' do
 
-    it 'returns 0 (Int) when dealing w/ an empty string' do
-      ''.add.should == 0
+    context 'when dealing with an empty string' do
+      subject { '' }
+      its(:add) { should == 0 }
     end
 
-    context "a string with a single number" do
+    context 'when dealing with a string with a single number' do
 
-      it "returns the number" do
-        '1'.add.should == 1
+      context '"1", for instance' do
+        subject { '1' }
+        its(:add) { should == 1 }
       end
+
+      context '"25", for instance' do
+        subject { '25' }
+        its(:add) { should == 25 }
+      end
+
     end
 
     context 'when dealing with more than 1 number' do
 
-      it 'returns the sum of 2 numbers' do
-        '1,2'.add.should == 3
+      context '"1,2", for instance' do
+        subject { '1,2' }
+        its(:add) { should == 3 }
       end
 
-      it 'returns the sum of 3 numbers' do
-        '1,2,3'.add.should == 6
+      context '"1,2,3", for instance' do
+        subject { '1,2,3' }
+        its(:add) { should == 6 }
       end
+
     end
 
-    context 'when using special characters as separators' do
+    context 'when using newline-characters as separators' do
 
-      it "treats newline characters (\\n) the same as commas" do
-       "1\n2,3".add.should == 6 
+      context '"1\n2,3", for instance' do
+        subject { "1\n2,3" }
+        its(:add) { should == 6 }
       end
+
     end
+
+    context 'when using a custom delimiter' do
+
+      context '"//;\n1;2", for instance' do
+        subject { "//;\n1;2" }
+        its(:add) { should == 3 }
+      end
+
+    end
+
   end
 end
 
