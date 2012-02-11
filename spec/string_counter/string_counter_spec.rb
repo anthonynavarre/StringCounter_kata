@@ -45,6 +45,16 @@ describe 'String Calculator' do
       end
 
     end
+
+    context 'when using a custom delimiter' do
+
+      context '"//;\n1;2", for instance' do
+        subject { "//;\n1;2" }
+        its(:add) { should == 3 }
+      end
+
+    end
+
   end
 end
 
