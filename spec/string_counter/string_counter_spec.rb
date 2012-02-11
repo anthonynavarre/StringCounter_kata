@@ -8,6 +8,15 @@ describe 'String Calculator' do
       ''.add.should == 0
     end
 
+    context "a string with a single number" do
+
+      it "returns the number" do
+        3.times do |i|
+          i.to_s.add.should == i
+        end
+      end
+    end
+
   end
 end
 
