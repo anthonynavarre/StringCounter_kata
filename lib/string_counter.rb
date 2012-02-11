@@ -1,5 +1,5 @@
 class String
   def add
-    0 if empty?
+    to_i
   end
 end
