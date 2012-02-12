@@ -60,16 +60,26 @@ describe 'String Calculator' do
 
         context '"-1" for instance' do
           subject { "-1" }
-          its(:add) { should raise_error(NegativeNumberError, 
-                                         "Negatives not allowed. Passed negatives:
-                                         #{subject}") }
+
+          it 'raises an ArgumentError' do
+            expect{ subject.add }.should raise_error(ArgumentError, /Negatives not allowed/)
+          end
+
+          it 'contains some helpful information in its error message' do
+            expect{ subject.add }.should raise_error(ArgumentError, /Passed negatives: -1/)
+          end
         end
 
         context '"-1, 2, -3" for instance' do
           subject { "-1, 2, -3" }
-          its(:add) { should raise_error(NegativeNumberError, 
-                                         "Negatives not allowed. Passed negatives:
-                                         -1, -3") }
+
+          it 'raises an ArgumentError' do
+            expect{ subject.add }.should raise_error(ArgumentError, /Negatives not allowed/)
+          end
+
+          it 'contains some helpful information in its error message' do
+            expect{ subject.add }.should raise_error(ArgumentError, %r(Passed negatives: -1,-3))
+          end
         end
 
       end
