@@ -58,28 +58,26 @@ describe 'String Calculator' do
 
       context 'negative numbers' do
 
-        context '"-1" for instance' do
-          subject { "-1" }
-
+        shared_examples_for :disallowed_negatives do
           it 'raises an ArgumentError' do
             expect{ subject.add }.should raise_error(ArgumentError, /Negatives not allowed/)
           end
 
           it 'contains some helpful information in its error message' do
-            expect{ subject.add }.should raise_error(ArgumentError, /Passed negatives: -1/)
+            expect{ subject.add }.should raise_error(ArgumentError, /#{expected_message}/)
           end
         end
 
+        context '"-1" for instance' do
+          subject { "-1" }
+          let(:expected_message) { 'Passed negatives: -1' }
+          it_behaves_like :disallowed_negatives
+        end
+
         context '"-1, 2, -3" for instance' do
-          subject { "-1, 2, -3" }
-
-          it 'raises an ArgumentError' do
-            expect{ subject.add }.should raise_error(ArgumentError, /Negatives not allowed/)
-          end
-
-          it 'contains some helpful information in its error message' do
-            expect{ subject.add }.should raise_error(ArgumentError, %r(Passed negatives: -1,-3))
-          end
+          subject { "-5, 2, -3" }
+          let(:expected_message) { 'Passed negatives: -5,-3' }
+          it_behaves_like :disallowed_negatives
         end
 
       end
