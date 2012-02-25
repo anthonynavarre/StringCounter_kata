@@ -81,6 +81,18 @@ describe 'String Calculator' do
         end
 
       end
+
+      context 'when given numbers greater than 1000' do
+        context '"123,1005" for instance' do
+          subject { '123,1005' }
+
+          it 'ignores numbers greater than 1000' do
+            subject.add.should == 123
+          end
+
+        end
+      end
+
     end
   end
 end
