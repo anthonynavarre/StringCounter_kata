@@ -1,21 +1,20 @@
 class String
   def add
-    self.gsub!(/[^-|\d]/, ',')
-    numbers = self.split(',')
-
-    find_negatives(numbers)
-
-    numbers.inject(0) do |sum, num|
-      sum + num.to_i
-    end
+    raise ArgumentError.new("Negatives not allowed. Passed negatives: #{negatives.join(',')}") if negatives.any?
+    numbers.inject(:+) || 0
   end
 
-  def find_negatives(numbers)
-    negatives = []
-    numbers.each do |num|
-      n = num.to_i
-      negatives.push(n) if n < 0
-    end
-    raise ArgumentError.new("Negatives not allowed. Passed negatives: #{negatives.join(',')}") if negatives.any?
+  protected
+
+  def delimiter
+    self.match(%r(^//(.)\n)) ? $1 : /\n|,/
+  end
+
+  def numbers
+    self.split(self.delimiter).map &:to_i
+  end
+
+  def negatives
+    self.numbers.select {|num| num < 0}
   end
 end
